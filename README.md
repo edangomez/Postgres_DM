@@ -1,6 +1,6 @@
 # Project: Data Modelling with Postgres
 
-In this project we practice data modelling with Postgres. As context, a music streaming startup called Sparkify wants  to create a Postgres database with tables designed to optimize queries on song play analysis, and bring you on the project. Hence, the two tasks are expected from a data engineer:
+A music streaming startup called Sparkify wants to create a Postgres database with tables designed to optimize queries on song play analysis, and bring you on the project. The analytics team is particularly interested in understanding what songs users are listening to. Hence, the two tasks are expected from a data engineer:
 
 - Create a database star schema
 - Write an ETL pipeline that transfers data from files in two local directories into these tables in Postgres using Python and SQL.
@@ -8,7 +8,9 @@ In this project we practice data modelling with Postgres. As context, a music st
 This repository contains three ```.py``` files:
 - ```create_tables.py``` that create the necesary tables for the star schema
 - ```sql_queries.py``` is a file containing the SQL queries for the creation of the tables and the ETL process. This file is imported by the other to ```.py``` files in this repo.
-- ```etl.py``` which contains the main commands for the ETL pipeline. 
+- ```etl.py``` which contains the main commands for the ETL pipeline.
+
+Jupyer notebook contain test of the ```.py``` files.
 
 ## Datasets
 
@@ -39,3 +41,30 @@ log_data/2018/11/2018-11-13-events.json
 And below is an example of what the data in a log file, 2018-11-12-events.json, looks like.
 
 ![image](https://video.udacity-data.com/topher/2019/February/5c6c15e9_log-data/log-data.png)
+
+## Star-Schema database 
+
+Among the main justifications for the selection of a star schema in this context are:
+- Since the main purpose of the database creation is to peform analyitics using the data, aggregations and JOINs might be required, hence a star relational model is suitable.
+- JSON files contains tabular data for which star-schema databases are suitable.
+- This is not a large dataset that requires multiple servers.
+
+## ETL Pipeline
+
+The etl.py contains three functions which area associated to the main steps in the ETL pipeline:
+
+1. ```process_song_file``` performs ETL over a single file from the song dataset.
+2. ```process_log_file``` performs ETL over a single file from the log dataset.
+3. ```process_data``` using the previous functions perform the ETL process over all the files of each dataset, depending on the file_path and func inputs.
+
+## Run scripts
+
+To create the star schema use the following command in the terminal
+````
+python create_tables.py
+```` 
+
+And, to perform the ETL process run:
+````
+python etl.py
+```` 
